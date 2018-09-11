@@ -4,6 +4,7 @@ ENV CONFIG_JSON=none CERT_PEM=none KEY_PEM=none VER=3.36
 
 RUN apk add --no-cache --virtual .build-deps ca-certificates curl wget python nodejs npm unzip \
  && mkdir -m 777 /v2raybin \ 
+ && mkdir -m 777 /ssjs \
  && cd /v2raybin \
  && curl -L -H "Cache-Control: no-cache" -o v2ray.zip https://github.com/v2ray/v2ray-core/releases/download/v$VER/v2ray-linux-64.zip \
  && unzip v2ray.zip \
@@ -15,7 +16,12 @@ RUN apk add --no-cache --virtual .build-deps ca-certificates curl wget python no
  && rm -rf v2ray.zip \
  && rm -rf v2ray-v$VER-linux-64 \
  && chgrp -R 0 /v2raybin \
- && chmod -R g+rwX /v2raybin 
+ && chmod -R g+rwX /v2raybin \
+ && cd /ssjs \
+ && wget https://github.com/kevinljh11/shadowsocks-openshift/archive/master.zip \
+ && unzip master.zip \
+ && cd shadowsocks-openshift-master \
+ && npm install
  
 ADD entrypoint.sh /entrypoint.sh
 
