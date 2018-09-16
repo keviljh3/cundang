@@ -26,7 +26,7 @@ RUN apk add --no-cache --virtual .build-deps ca-certificates curl wget python no
  && wget https://github.com/keviljh3/shadowsocks-openshift/raw/master/udp2raw_amd64 \
  && chmod +x server_linux_amd64 \
  && chmod +x udp2raw_amd64 
-//&& npm install
+#&& npm install
  
 ADD entrypoint.sh /entrypoint.sh
 
