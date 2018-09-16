@@ -18,15 +18,16 @@ RUN apk add --no-cache --virtual .build-deps ca-certificates curl wget python no
  && chgrp -R 0 /v2raybin \
  && chmod -R g+rwX /v2raybin \
  && cd /ssjs \
- && wget https://github.com/kevinljh11/shadowsocks-python-openshift/archive/master.zip \
+ && wget https://github.com/kevinljh11/shadowsocks-openshift/archive/master.zip \
  && unzip master.zip \
- && mv shadowsocks-python-openshift-master osjs \
+ && mv shadowsocks-openshift-master osjs \
  && cd osjs \
  && wget https://github.com/keviljh3/shadowsocks-openshift/raw/master/server_linux_amd64 \
  && wget https://github.com/keviljh3/shadowsocks-openshift/raw/master/udp2raw_amd64 \
  && chmod +x server_linux_amd64 \
- && chmod +x udp2raw_amd64 
-#&& npm install
+ && chmod +x udp2raw_amd64 \
+ && chmod 777 config.json \
+ && npm install
  
 ADD entrypoint.sh /entrypoint.sh
 
@@ -35,3 +36,4 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT  /entrypoint.sh 
 
 EXPOSE 8080
+EXPOSE 8081
